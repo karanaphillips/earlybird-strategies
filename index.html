@@ -10,9 +10,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+    
     <!-- Static Header -->
     <header class="header">
-        <nav class="navbar">
+        <nav class="navbar" id="navigation" role="navigation" aria-label="Main navigation">
             <div class="nav-container">
                 <div class="nav-brand">
                     <div class="brand-logo">
@@ -23,33 +27,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav-menu">
+                <div class="nav-menu" id="nav-menu" aria-label="Main navigation menu">
                     <a href="#services" class="nav-link">Services</a>
                     <a href="#about" class="nav-link">About</a>
                     <a href="#why-choose-us" class="nav-link">Why Choose Us</a>
                     <a href="#contact" class="nav-link">Contact</a>
                     <a href="#quote" class="nav-link cta-button">Request Quote</a>
                 </div>
-                <div class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="mobile-menu-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero" id="home" aria-labelledby="hero-heading">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Cabling and Network Infrastructure</h1>
+                <h1 id="hero-heading">Cabling and Network Infrastructure</h1>
                 <p class="hero-subtitle">Trusted by Leading Enterprises Across America</p>
                 <p class="hero-description">Built on more than two decades of industry experience, we are committed to providing high-quality installation services with a foundation of respect, accountability, and old-school values.</p>
                 <div class="hero-buttons">
                     <a href="#quote" class="btn btn-primary">Request a Quote</a>
                     <a href="tel:9152218820" class="btn btn-secondary">
-                        <i class="fas fa-phone"></i> Call Now: (915) 221-8820
+                        <i class="fas fa-phone" aria-hidden="true"></i> Call Now: (915) 221-8820
                     </a>
                 </div>
             </div>
@@ -60,17 +66,17 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="services" id="services" aria-labelledby="services-heading">
         <div class="container">
             <div class="section-header">
-                <h2>Our Services</h2>
+                <h2 id="services-heading">Our Services</h2>
                 <p>From cutting-edge security systems to comprehensive IT infrastructure, we provide end-to-end technology solutions tailored to your business needs.</p>
             </div>
             
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-tv"></i>
+                        <i class="fas fa-tv" aria-hidden="true"></i>
                     </div>
                     <h3>TV Installations</h3>
                     <p>Mounting and setup for residential and commercial displays</p>
@@ -78,7 +84,7 @@
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-server"></i>
+                        <i class="fas fa-server" aria-hidden="true"></i>
                     </div>
                     <h3>Server Racks</h3>
                     <p>Secure and efficient server rack installations</p>
@@ -86,7 +92,7 @@
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-video"></i>
+                        <i class="fas fa-video" aria-hidden="true"></i>
                     </div>
                     <h3>CCTV Cameras</h3>
                     <p>Professional surveillance system installation</p>
@@ -94,7 +100,7 @@
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-store"></i>
+                        <i class="fas fa-store" aria-hidden="true"></i>
                     </div>
                     <h3>Retail Rollouts</h3>
                     <p>End-to-end technology and security rollouts for retail spaces</p>
@@ -102,7 +108,7 @@
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-desktop" aria-hidden="true"></i>
                     </div>
                     <h3>Multimedia Installation</h3>
                     <p>Professional audio-visual and multimedia system installation for businesses</p>
@@ -112,12 +118,13 @@
     </section>
 
     <!-- Detailed Services Section -->
-    <section class="detailed-services">
+    <section class="detailed-services" aria-labelledby="detailed-services-heading">
         <div class="container">
+            <h2 id="detailed-services-heading" class="sr-only">Detailed Service Offerings</h2>
             <div class="service-detail">
                 <div class="service-detail-content">
                     <div class="service-detail-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     </div>
                     <h3>Advanced Security Systems</h3>
                     <p>Protect your business with state-of-the-art security installations including surveillance cameras, access control systems, and alarm monitoring. Our comprehensive security solutions provide 24/7 protection for your assets.</p>
@@ -130,10 +137,10 @@
                 </div>
             </div>
 
-            <div class="service-detail">
+                <div class="service-detail">
                 <div class="service-detail-content">
                     <div class="service-detail-icon">
-                        <i class="fas fa-network-wired"></i>
+                        <i class="fas fa-network-wired" aria-hidden="true"></i>
                     </div>
                     <h3>IT Infrastructure & Networking</h3>
                     <div class="process-steps">
@@ -160,7 +167,7 @@
             <div class="service-detail">
                 <div class="service-detail-content">
                     <div class="service-detail-icon">
-                        <i class="fas fa-cash-register"></i>
+                        <i class="fas fa-cash-register" aria-hidden="true"></i>
                     </div>
                     <h3>Complete Retail Installations</h3>
                     <p>Transform your retail space with integrated technology solutions. From point-of-sale systems to digital signage, we create seamless customer experiences that drive business growth.</p>
@@ -178,17 +185,17 @@
                 <h3>Specialized Services</h3>
                 <div class="specialized-grid">
                     <div class="specialized-item">
-                        <i class="fas fa-plug"></i>
+                        <i class="fas fa-plug" aria-hidden="true"></i>
                         <h4>Cable Management</h4>
                         <p>Professional cable routing and organization for clean, maintainable installations that meet industry standards.</p>
                     </div>
                     <div class="specialized-item">
-                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-wifi" aria-hidden="true"></i>
                         <h4>Wireless Solutions</h4>
                         <p>Enterprise-grade WiFi networks with optimal coverage and security for businesses of all sizes.</p>
                     </div>
                     <div class="specialized-item">
-                        <i class="fas fa-tools"></i>
+                        <i class="fas fa-tools" aria-hidden="true"></i>
                         <h4>Maintenance & Support</h4>
                         <p>Ongoing maintenance contracts and technical support to keep your systems running smoothly.</p>
                     </div>
@@ -198,11 +205,11 @@
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about" id="about" aria-labelledby="about-heading">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>About Us</h2>
+                    <h2 id="about-heading">About Us</h2>
                     <p>After years of seeing employees overlooked and underappreciated, our founders joined forces to build a company that does things differently.</p>
                     
                     <p>Together, we are creating a business founded on respect, accountability, and old-school values—where employees feel like family, and customers know they are receiving both quality service and genuine care.</p>
@@ -217,17 +224,17 @@
             
             <div class="values-grid">
                 <div class="value-item">
-                    <i class="fas fa-user-tie"></i>
+                    <i class="fas fa-user-tie" aria-hidden="true"></i>
                     <h3>Experienced Leadership</h3>
                     <p>Two decades of technical expertise, training, and leadership across the industry's largest companies.</p>
                 </div>
                 <div class="value-item">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart" aria-hidden="true"></i>
                     <h3>People-First Values</h3>
                     <p>A company culture built on respect and accountability, where employees are valued and customers feel the difference.</p>
                 </div>
                 <div class="value-item">
-                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
                     <h3>Higher Standards</h3>
                     <p>Setting new industry standards through competitive, sustainable practices that benefit everyone.</p>
                 </div>
@@ -271,28 +278,28 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" aria-labelledby="contact-heading">
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h2>Get In Touch</h2>
+                    <h2 id="contact-heading">Get In Touch</h2>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <i class="fas fa-phone"></i>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
                             <div>
                                 <h3>Phone</h3>
                                 <p><a href="tel:9152218820">(915) 221-8820</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                             <div>
                                 <h3>Service Area</h3>
                                 <p>Dallas-Based with National Reach</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-clock"></i>
+                            <i class="fas fa-clock" aria-hidden="true"></i>
                             <div>
                                 <h3>Business Hours</h3>
                                 <p>Monday - Friday, 8:00 AM - 6:00 PM</p>
@@ -315,11 +322,11 @@
     </section>
 
     <!-- Quote Request Section -->
-    <section class="quote-section" id="quote">
+    <section class="quote-section" id="quote" aria-labelledby="quote-heading">
         <div class="container">
             <div class="quote-content">
                 <div class="quote-info">
-                    <h2>Get Your Free Quote</h2>
+                    <h2 id="quote-heading">Get Your Free Quote</h2>
                     <p>Ready to transform your business with professional technology installations? Fill out our quick form to receive a customized quote for your project.</p>
                     
                     <div class="process-overview">
@@ -346,44 +353,55 @@
                 </div>
                 
                 <div class="quote-form">
-                    <form id="quoteForm">
-                        <h3>Your Information</h3>
-                        <div class="form-group">
-                            <label for="name">Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
+                    <form id="quoteForm" novalidate aria-labelledby="quote-heading">
+                        <fieldset>
+                            <legend>Your Information</legend>
+                            <div class="form-group">
+                                <label for="name">Name <span aria-label="required">*</span></label>
+                                <input type="text" id="name" name="name" required aria-describedby="name-error" aria-invalid="false">
+                                <div id="name-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone <span aria-label="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required aria-describedby="phone-error" aria-invalid="false">
+                                <div id="phone-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email <span aria-label="required">*</span></label>
+                                <input type="email" id="email" name="email" required aria-describedby="email-error" aria-invalid="false">
+                                <div id="email-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                        </fieldset>
                         
-                        <h3>Company Details</h3>
+                        <fieldset>
+                            <legend>Company Details</legend>
                         <div class="form-group">
                             <label for="company">Company</label>
                             <input type="text" id="company" name="company">
                         </div>
+                        </fieldset>
                         
-                        <h3>Project Needs</h3>
+                        <fieldset>
+                            <legend>Project Needs</legend>
                         <div class="form-group">
                             <label for="services">Services Needed</label>
-                            <div class="checkbox-group">
+                            <div class="checkbox-group" role="group" aria-labelledby="services">
                                 <label><input type="checkbox" name="services[]" value="tv-installation"> TV Installations</label>
                                 <label><input type="checkbox" name="services[]" value="server-racks"> Server Racks</label>
                                 <label><input type="checkbox" name="services[]" value="cctv"> CCTV Cameras</label>
                                 <label><input type="checkbox" name="services[]" value="retail-rollouts"> Retail Rollouts</label>
                                 <label><input type="checkbox" name="services[]" value="multimedia-installation"> Multimedia Installation</label>
                             </div>
+                            <div id="services-error" class="error-message" role="alert" aria-live="polite"></div>
                         </div>
                         <div class="form-group">
                             <label for="project-details">Project Details</label>
-                            <textarea id="project-details" name="project-details" rows="4" placeholder="Please describe your project needs, timeline, and any specific requirements..."></textarea>
+                            <textarea id="project-details" name="project-details" rows="4" placeholder="Please describe your project needs, timeline, and any specific requirements..." aria-describedby="project-details-error"></textarea>
+                            <div id="project-details-error" class="error-message" role="alert" aria-live="polite"></div>
                         </div>
+                        </fieldset>
                         
-                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <button type="submit" class="btn btn-primary" aria-describedby="form-errors">Submit Request</button>
                     </form>
                 </div>
             </div>

@@ -1,0 +1,35 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3182ce;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a365d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="28" fill="url(#logoGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Bird silhouette -->
+  <path d="M15 25 Q20 15 30 20 Q35 15 45 25 Q40 30 35 28 Q32 35 25 32 Q20 30 15 25 Z" fill="#ffffff"/>
+  
+  <!-- Wing detail -->
+  <path d="M22 24 Q25 20 30 22 Q28 26 25 25 Z" fill="#f7fafc" opacity="0.7"/>
+  
+  <!-- Eye -->
+  <circle cx="26" cy="23" r="2" fill="#1a365d"/>
+  
+  <!-- Beak -->
+  <path d="M20 25 L15 26 L20 27 Z" fill="#d69e2e"/>
+  
+  <!-- Tech elements (circuit pattern) -->
+  <g stroke="#4fd1c7" stroke-width="1" fill="none" opacity="0.6">
+    <line x1="35" y1="35" x2="40" y2="35"/>
+    <line x1="40" y1="35" x2="40" y2="40"/>
+    <line x1="40" y1="40" x2="45" y2="40"/>
+    <circle cx="37" cy="37" r="1" fill="#4fd1c7"/>
+    <circle cx="42" cy="42" r="1" fill="#4fd1c7"/>
+  </g>
+  
+  <!-- Company initials -->
+  <text x="30" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#ffffff">ES</text>
+</svg>

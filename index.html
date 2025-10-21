@@ -34,7 +34,7 @@
                     <a href="#contact" class="nav-link">Contact</a>
                     <a href="#quote" class="nav-link cta-button">Request Quote</a>
                 </div>
-                <button class="mobile-menu-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+                <button class="mobile-menu-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation menu" type="button">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -310,10 +310,9 @@
                     <div class="social-links">
                         <h3>Connect With Us</h3>
                         <div class="social-icons">
-                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="#" aria-label="Blog"><i class="fas fa-blog"></i></a>
+                            <a href="https://www.linkedin.com/company/earlybird-strategies-llc" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/share/1A6QpHFkZy/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/earlybirdstrategiesllc?igsh=MmRvY3JnOTJtMDg3" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -402,6 +401,30 @@
                         </fieldset>
                         
                         <button type="submit" class="btn btn-primary" aria-describedby="form-errors">Submit Request</button>
+                    </form>
+                    <script>
+                    document.getElementById('quoteForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        var form = e.target;
+                        var formData = new FormData(form);
+                        fetch('/quote', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Thank you! Your quote request has been sent.');
+                                form.reset();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(err => {
+                            alert('Submission failed. Please try again later.');
+                        });
+                    });
+                    </script
                     </form>
                 </div>
             </div>

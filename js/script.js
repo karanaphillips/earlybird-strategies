@@ -5,17 +5,54 @@ const navLinks = document.querySelectorAll('.nav-link');
 const quoteForm = document.getElementById('quoteForm');
 
 // Mobile Menu Toggle
-mobileMenuToggle.addEventListener('click', () => {
+function toggleMobileMenu() {
+    const isExpanded = navMenu.classList.contains('active');
+    
     navMenu.classList.toggle('active');
     mobileMenuToggle.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+    
+    // Update ARIA attributes for accessibility
+    mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+    
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = !isExpanded ? 'hidden' : '';
+    
+    // Focus management
+    if (!isExpanded) {
+        // When opening, focus on first menu item
+        const firstMenuItem = navMenu.querySelector('.nav-link');
+        if (firstMenuItem) {
+            setTimeout(() => firstMenuItem.focus(), 100);
+        }
+    }
+}
+
+function closeMobileMenu() {
+    navMenu.classList.remove('active');
+    mobileMenuToggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+}
+
+mobileMenuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleMobileMenu();
 });
 
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        closeMobileMenu();
     });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target) && navMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
 });
 
 // Smooth scrolling for anchor links
@@ -45,9 +82,19 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Close mobile menu on window resize (when switching between mobile and desktop)
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
+});
+
 // Form submission handling
 quoteForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    // Clear previous errors
+    clearFormErrors();
     
     // Get form data
     const formData = new FormData(this);
@@ -67,23 +114,41 @@ quoteForm.addEventListener('submit', function(e) {
         }
     }
     
-    // Basic validation
-    if (!data.name || !data.phone || !data.email) {
-        showNotification('Please fill in all required fields.', 'error');
-        return;
+    // Validation with accessibility support
+    let hasErrors = false;
+    
+    if (!data.name || data.name.trim() === '') {
+        showFieldError('name', 'Name is required.');
+        hasErrors = true;
     }
     
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
+    if (!data.phone || data.phone.trim() === '') {
+        showFieldError('phone', 'Phone number is required.');
+        hasErrors = true;
+    } else if (!/^[\d\s\-\(\)\+\.]+$/.test(data.phone)) {
+        showFieldError('phone', 'Please enter a valid phone number.');
+        hasErrors = true;
     }
     
-    // Phone validation (basic)
-    const phoneRegex = /^[\d\s\-\+\(\)\.]+$/;
-    if (!phoneRegex.test(data.phone)) {
-        showNotification('Please enter a valid phone number.', 'error');
+    if (!data.email || data.email.trim() === '') {
+        showFieldError('email', 'Email address is required.');
+        hasErrors = true;
+    } else {
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showFieldError('email', 'Please enter a valid email address.');
+            hasErrors = true;
+        }
+    }
+    
+    if (hasErrors) {
+        // Focus on first error field for accessibility
+        const firstErrorField = document.querySelector('.form-group.error input, .form-group.error textarea');
+        if (firstErrorField) {
+            firstErrorField.focus();
+        }
+        showNotification('Please correct the errors below.', 'error');
         return;
     }
     
@@ -110,6 +175,41 @@ quoteForm.addEventListener('submit', function(e) {
     }, 2000);
 });
 
+// Helper functions for form validation with accessibility
+function showFieldError(fieldName, message) {
+    const field = document.getElementById(fieldName);
+    const formGroup = field.closest('.form-group');
+    const errorElement = document.getElementById(`${fieldName}-error`);
+    
+    if (formGroup && errorElement) {
+        formGroup.classList.add('error');
+        errorElement.textContent = message;
+        errorElement.classList.add('visible');
+        field.setAttribute('aria-invalid', 'true');
+        field.setAttribute('aria-describedby', `${fieldName}-error`);
+    }
+}
+
+function clearFormErrors() {
+    const errorElements = document.querySelectorAll('.error-message');
+    const formGroups = document.querySelectorAll('.form-group.error');
+    const invalidFields = document.querySelectorAll('[aria-invalid="true"]');
+    
+    errorElements.forEach(element => {
+        element.classList.remove('visible');
+        element.textContent = '';
+    });
+    
+    formGroups.forEach(group => {
+        group.classList.remove('error');
+    });
+    
+    invalidFields.forEach(field => {
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-describedby');
+    });
+}
+
 // Notification system
 function showNotification(message, type = 'info') {
     // Remove existing notifications
@@ -120,6 +220,11 @@ function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
+    
+    // Add accessibility attributes
+    notification.setAttribute('role', 'alert');
+    notification.setAttribute('aria-live', 'assertive');
+    notification.setAttribute('aria-atomic', 'true');
     
     // Add styles
     notification.style.cssText = `
@@ -203,56 +308,7 @@ notificationStyles.textContent = `
 `;
 document.head.appendChild(notificationStyles);
 
-// Add mobile menu styles
-const mobileMenuStyles = document.createElement('style');
-mobileMenuStyles.textContent = `
-    @media (max-width: 768px) {
-        .nav-menu {
-            position: fixed;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: white;
-            flex-direction: column;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .nav-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .nav-menu .nav-link {
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .nav-menu .nav-link:last-child {
-            border-bottom: none;
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-    }
-`;
-document.head.appendChild(mobileMenuStyles);
+// Mobile menu styles are now in the main CSS file
 
 // Add header scroll styles
 const headerScrollStyles = document.createElement('style');
@@ -372,8 +428,23 @@ window.addEventListener('scroll', () => {
 document.addEventListener('keydown', (e) => {
     // Close mobile menu with Escape key
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        closeMobileMenu();
+        mobileMenuToggle.focus(); // Return focus to the toggle button
+    }
+    
+    // Handle Tab key to trap focus within mobile menu when open
+    if (e.key === 'Tab' && navMenu.classList.contains('active')) {
+        const focusableElements = navMenu.querySelectorAll('a[href], button');
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+        }
     }
 });
 
